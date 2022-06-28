@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 import random
 number = random.randint(-10000, 10000)
-flad =0
+flag = 0
 if number < 0:
-    number *=-1
+    number *= -1
     flag = 1
 result = number % 10
 if flag == 1:

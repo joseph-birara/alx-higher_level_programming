@@ -1,9 +1,9 @@
 #!/user/bin/python3
-from audioop import add
+
 
 
 if __name__ == "__main__":
-    from calculator_1 import mul, div, add
+    from calculator_1 import mul, div, add, sub
     a = 10
     b = 5
     print("{:d} + {:d} = {:d}".format(a, b, add(a, b)))

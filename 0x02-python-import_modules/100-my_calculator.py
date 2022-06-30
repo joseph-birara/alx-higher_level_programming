@@ -8,10 +8,9 @@ if __name__ == "__main__":
     from calculator_1 import add, sub, mul, div
     import sys
     var = sys.argv
-    le = len(var)
-    message = "Usage: ./100-my_calculator.py"
-    if le != 4:
-        print("{} {} {} {}".format(message, var[1], var[2], var[3]))
+    le = len(var) - 1
+    if le != 3:
+        print("Usage: ./100-my_calculator.py <a> <operator> <b>")
         exit(1)
     else:
         a = int(var[1])

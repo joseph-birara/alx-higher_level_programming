@@ -1,4 +1,5 @@
 #include "lists.h"
+#include <stdlib.h>
 
 /**
 * list_len - finds no. of elements ina linked list.
@@ -37,7 +38,7 @@ int is_palindrome(listint_t **head)
 	len = list_len(temp);
 	nArr = (int *)malloc(sizeof(int) * len);
 	if (nArr == NULL)
-		return (2);
+		return (1);
 	temp = *head;
 	while (temp != NULL)
 	{

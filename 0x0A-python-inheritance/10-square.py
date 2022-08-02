@@ -4,17 +4,17 @@ more class base
 """
 
 
-Rectangle = __import__('9-rectangle').Rectangle
+R = __import__('9-rectangle').Rectangle
 
 
-"""
-Square class
-"""
-
-
-class Square(Rectangle):
-    """ Square Class """
+class Square(R):
+    """
+    This class inheretes from Rectangle class.
+    """
     def __init__(self, size):
-        """ instantiation with size """
+        """
+        This function initializes the size attribute.
+        """
+        self.integer_validator("size", size)
+        super().__init__(size, size)
         self.__size = size
-        super().__init__(self.__size, self.__size)

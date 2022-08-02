@@ -1,150 +1,103 @@
-# 7-base_geometry.txt
-# joseph birara
+====================================================================
+                                                                   =
+Generating Test Cases for ``7-base_geometry`` module.              =
+                                                                   =
+====================================================================
 
-=============================
-How to Use 7-base_geometry.py
-=============================
+====================================================================
+                                                                   =
+File: 7-base_geometry.txt                                          =
+Desc: This file contains most possible edge cases for the ``7-base =
+      _geometry`` module including docstrings, and test the        =
+      methods.                                                     =
+Author: joseph birara                            =
+Date Created: Aug 2 2022                                           =
+                                                                   =
+====================================================================
 
-This modules defines a base geometry class BaseGeometry.
+Let's check for module docstring.
 
-Instantiation
-=============
+>>> doc_len = __import__("7-base_geometry").__doc__
+>>> len(doc_len) > 1
+True
 
-``BaseGeometry`` includes no attributes, and accordingly is initialized 
-with no arguments.
+Let's check for class docstring.
 
-::
+>>> class_len = __import__("7-base_geometry").BaseGeometry.__doc__
+>>> len(class_len) > 1
+True
 
-    >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
-    >>> bg = BaseGeometry()
-    >>> type(bg)
-    <class '7-base_geometry.BaseGeometry'>
+Let's check for method docstring.
 
-::
+>>> method_len = __import__("7-base_geometry").BaseGeometry.area.__doc__
+>>> len(method_len) > 1
+True
 
-    >>> print(bg) # doctest: +ELLIPSIS
-    <7-base_geometry.BaseGeometry object at ...>
+>>> method2_len = __import__("7-base_geometry").BaseGeometry.integer_validator.__doc__
+>>> len(method2_len) > 1
+True
 
-In fact, any arguments supplied to an instantiation of ``BaseGeometry`` results
-in a TypeError.
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 
-::
+>>> base = BaseGeometry()
 
-    >>> bg = BaseGeometry(None)
-    Traceback (most recent call last):
-    TypeError: object() takes no parameters
+Let's test the type of object base
 
-Methods
-=======
+>>> type(base)
+<class '7-base_geometry.BaseGeometry'>
 
-``BaseGeometry`` features two methods - ``area(self)`` and 
-``integer_validator(self, name, value)``. ``area(...)`` is not yet
-implemented.
+Let's test the ``area`` method.
 
-::
+>>> base.area()
+Traceback (most recent call last):
+...
+Exception: area() is not implemented
 
-    >>> bg = BaseGeometry()
-    >>> print(bg.area) # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
-    <bound method BaseGeometry.area of <7-base_geometry.BaseGeometry 
-     object at...>>
+Let's test with valid arguments to the ``integer_validator`` method.
 
-::
+>>> base.integer_validator("age", 24)
 
-    >>> bg.area()
-    Traceback (most recent call last):
-    Exception: area() is not implemented
+>>> base.integer_validator("number", 7)
 
-The second method, ``integer_validator(...)``, validates the integer value
-of a paramter. The first parameter, ``name``, is the name of the argument to
-check. The second argument, ``value``, is the argument to check.
+Let's test with non-integer value.
 
-::
+>>> base.integer_validator("age", None)
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
 
-    >>> print(bg.integer_validator) # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
-    <bound method BaseGeometry.integer_validator of <7-base_geometry.BaseGeometry 
-    object at...>>
+>>> base.integer_validator("age", [1, 2, 3])
+Traceback (most recent call last):
+...
+TypeError: age must be an integer
 
-If ``value`` is a valid integer, the function does nothing.
+Let's test with values less than or equal to zero.
 
-::
+>>> base.integer_validator("age", 0)
+Traceback (most recent call last):
+...
+ValueError: age must be greater than 0
 
+>>> base.integer_validator("age", -7)
+Traceback (most recent call last):
+...
+ValueError: age must be greater than 0
 
-   >>> bg.integer_validator("valid number", 1)
+Let's test the class by passing arguments while instantantiating.
 
-But, if ``value`` is not an integer, a ``TypeError`` is raised.
+>>> base2 = BaseGeometry(13)
+Traceback (most recent call last):
+...
+TypeError: BaseGeometry() takes no arguments
 
-::
+Let's tes the method ``integer_validator`` by passing fewer arguments.
 
-    >>> bg.integer_validator("invalid number", "number")
-    Traceback (most recent call last):
-    TypeError: invalid number must be an integer
+>>> base.integer_validator("age")
+Traceback (most recent call last):
+...
+TypeError: integer_validator() missing 1 required positional argument: 'value'
 
-::
-
-    >>> bg.integer_validator("another invalid", True)
-    Traceback (most recent call last):
-    TypeError: another invalid must be an integer
-
-::
-
-    >>> bg.integer_validator("invalid tuple", (1,))
-    Traceback (most recent call last):
-    TypeError: invalid tuple must be an integer
-
-::
-
-    >>> bg.integer_validator("and another", [3])
-    Traceback (most recent call last):
-    TypeError: and another must be an integer
-
-::
-
-    >>> bg.integer_validator("more invalid testing", {3, 4})
-    Traceback (most recent call last):
-    TypeError: more invalid testing must be an integer
-
-::
-
-    >>> bg.integer_validator("absolutely every possible invalid", None)
-    Traceback (most recent call last):
-    TypeError: absolutely every possible invalid must be an integer
-
-And if ``value`` is an integer, but less than or equal to zero, a ValueError
-is raised.
-
-::
-
-    >>> bg.integer_validator("invalid int", -1)
-    Traceback (most recent call last):
-    ValueError: invalid int must be greater than 0
-
-::
-
-    >>> bg.integer_validator("invalid int", 0)
-    Traceback (most recent call last):
-    ValueError: invalid int must be greater than 0
-
-Both ``name`` and ``value`` must be provided. Otherwise, a TypeError is raised.
-
-::
-
-    >>> bg.integer_validator() # doctest: +NORMALIZE_WHITESPACE
-    Traceback (most recent call last):
-    TypeError: integer_validator() missing 2 required positional arguments: 
-    'name' and 'value'
-
-::
-
-    >>> bg.integer_validator(None) # doctest: +NORMALIZE_WHITESPACE
-    Traceback (most recent call last):
-    TypeError: integer_validator() missing 1 required positional argument: 
-    'value'
-
-The method assumes the paramter ``name`` will be a string, but ``name`` of any
-type will be printed.
-
-::
-
-    >>> bg.integer_validator({"a": 1}, (1, 2))
-    Traceback (most recent call last):
-    TypeError: {'a': 1} must be an integer
+>>> base.integer_validator()
+Traceback (most recent call last):
+...
+TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'

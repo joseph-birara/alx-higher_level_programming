@@ -4,6 +4,7 @@
 '''
 import json
 import csv
+import turtle
 
 
 class Base:
@@ -84,7 +85,7 @@ class Base:
         try:
             with open(file_name, encoding="UTF8") as fd:
                 content = cls.from_json_string(fd.read())
-        except:
+        except IOError:
             return []
 
         instances = []
@@ -97,10 +98,7 @@ class Base:
 
     @staticmethod
     def draw(list_rectangles, list_squares):
-        '''
-            Opens a window and draws all the squares and rectangles
-        '''
-        import turtle
+        '''Opens a window and draws all the squares and rectangles'''
 
         turtle.penup()
         turtle.pensize(10)
